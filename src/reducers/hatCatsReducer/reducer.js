@@ -5,14 +5,14 @@ const initialState = {
   error: null,
 };
 
-export const hatCatsReducer = (state = initialState, action) => {
+export const CatsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.GET_HAT_CATS_DATA:
+    case actionTypes.GET_CATS_DATA:
       return {
         ...state,
         data: action.payload.data,
       };
-    case actionTypes.HANDLE_HAT_CATS_ERROR:
+    case actionTypes.HANDLE_CATS_ERROR:
       return {
         ...state,
         error: action.payload.data,

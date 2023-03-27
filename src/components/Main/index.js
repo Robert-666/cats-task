@@ -1,15 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getHatCatsData } from "../../reducers/hatCatsReducer/actions";
+import { getCatsData } from "../../reducers/hatCatsReducer/actions";
 import { ImageBox } from "./ImageBox";
 import "./index.scss";
 
 export const Main = () => {
   const { category } = useParams();
-  const hatCats = useSelector((state) =>
-    state[category] ? state[category].data : []
-  );
+  const cats = useSelector((state) => state.cats.data);
   const error = useSelector((state) => state.category.error);
   const [imageCount, setImageCount] = useState(3);
   const dispatch = useDispatch();
@@ -23,21 +21,21 @@ export const Main = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getHatCatsData());
-  }, []);
+    dispatch(getCatsData(category));
+  }, [category]);
 
   if (error !== null) {
     return <h1>{error}</h1>;
   }
 
-  if (hatCats.length === 0) {
+  if (cats.length === 0) {
     return <h1>Sorry try another category</h1>;
   }
 
   return (
     <>
       <div className="main">
-        {hatCats.slice(0, imageCount).map((item) => (
+        {cats.slice(0, imageCount).map((item) => (
           <ImageBox item={item} key={item.id} />
         ))}
       </div>

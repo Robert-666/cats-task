@@ -3,7 +3,7 @@ import "./index.scss";
 
 export const HeaderItem = ({ item }) => {
   return (
-    <NavLink className="header__item" to={`/${item.name}`}>
+    <NavLink className="header__item" to={`/${item.id}`}>
       {item.name}
     </NavLink>
   );
