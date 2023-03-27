@@ -1,0 +1,4 @@
+export const actionTypes = {
+  GET_HAT_CATS_DATA: "GET_HAT_CATS_DATA",
+  HANDLE_HAT_CATS_ERROR: "HANDLE_HAT_CATS_ERROR",
+};
