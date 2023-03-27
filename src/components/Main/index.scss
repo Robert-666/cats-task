@@ -4,5 +4,22 @@
     overflow: hidden;
     display: flex;
     flex-wrap: wrap;
+
+
+    &__show_more_btn {
+        width: 100vw;
+        min-height: 50px;
+        color: white;
+        background: rgb(51, 102, 153);
+        font-size: 19px;
+    }
+
+    &__show_less_btn {
+        width: 100vw;
+        min-height: 50px;
+        color: white;
+        background: rgb(51, 102, 153);
+        font-size: 19px;
+    }
       
 }

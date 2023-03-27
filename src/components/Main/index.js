@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getHatCatsData } from "../../reducers/hatCatsReducer/actions";
@@ -11,8 +11,16 @@ export const Main = () => {
     state[category] ? state[category].data : []
   );
   const error = useSelector((state) => state.category.error);
-
+  const [imageCount, setImageCount] = useState(3);
   const dispatch = useDispatch();
+
+  const handleShowMore = useCallback(() => {
+    setImageCount((prevVal) => prevVal + 3);
+  }, []);
+
+  const handleShowLess = useCallback(() => {
+    setImageCount((prevVal) => prevVal - 3);
+  }, []);
 
   useEffect(() => {
     dispatch(getHatCatsData());
@@ -22,16 +30,35 @@ export const Main = () => {
     return <h1>{error}</h1>;
   }
 
+  if (hatCats.length === 0) {
+    return <h1>Sorry try another category</h1>;
+  }
+
   return (
-    <div className="main">
-      {hatCats.length !== 0 ? (
-        hatCats.map((item) => (
-          // <img src={item.url} />
+    <>
+      <div className="main">
+        {hatCats.slice(0, imageCount).map((item) => (
           <ImageBox item={item} key={item.id} />
-        ))
-      ) : (
-        <h1>Sorry there is no available images try another one </h1>
+        ))}
+      </div>
+      {imageCount < 10 && (
+        <button
+          className="main__show_more_btn"
+          onClick={() => {
+            handleShowMore();
+          }}
+        >
+          Show More
+        </button>
       )}
-    </div>
+      {imageCount > 3 && (
+        <button
+          className="main__show_less_btn"
+          onClick={() => handleShowLess()}
+        >
+          Show Less
+        </button>
+      )}
+    </>
   );
 };

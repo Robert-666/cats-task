@@ -7,7 +7,7 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<h1>Hello everyone</h1>} />
+        <Route path="/" element={<h1>Welcome to our Page</h1>} />
         <Route path="/:category" element={<Main />} />
       </Routes>
     </BrowserRouter>
