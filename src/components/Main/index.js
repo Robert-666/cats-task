@@ -1,14 +1,17 @@
 import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getCatsData } from "../../reducers/hatCatsReducer/actions";
+import {
+  getCatsData,
+  getNonSelectedCatsData,
+} from "../../reducers/catsReducer/actions";
 import { ImageBox } from "./ImageBox";
 import "./index.scss";
 
 export const Main = () => {
   const { category } = useParams();
   const cats = useSelector((state) => state.cats.data);
-  const error = useSelector((state) => state.category.error);
+  const error = useSelector((state) => state.cats.error);
   const [imageCount, setImageCount] = useState(3);
   const dispatch = useDispatch();
 
@@ -21,7 +24,11 @@ export const Main = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getCatsData(category));
+    if (category) {
+      dispatch(getCatsData(category));
+    } else {
+      dispatch(getNonSelectedCatsData());
+    }
   }, [category]);
 
   if (error !== null) {
@@ -29,7 +36,7 @@ export const Main = () => {
   }
 
   if (cats.length === 0) {
-    return <h1>Sorry try another category</h1>;
+    return <h1>Loading...</h1>;
   }
 
   return (
