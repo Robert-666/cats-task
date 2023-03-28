@@ -46,7 +46,7 @@ export const Main = () => {
           <ImageBox item={item} key={item.id} />
         ))}
       </div>
-      {imageCount < 10 && (
+      {imageCount < cats.length && (
         <button
           className="main__show_more_btn"
           onClick={() => {
